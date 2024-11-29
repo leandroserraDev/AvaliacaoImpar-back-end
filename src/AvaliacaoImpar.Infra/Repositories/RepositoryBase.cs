@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using AvaliacaoImpar.Domain.Entities.ValueObjects;
 using AvaliacaoImpar.Domain.Interfaces.Repositories.Base;
 using AvaliacaoImpar.Domain.Interfaces.Repositories.paginated;
+using AvaliacaoImpar.Domain.Interfaces.Services.notification;
 using AvaliacaoImpar.Infra.Context;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
@@ -15,26 +16,43 @@ namespace AvaliacaoImpar.Infra.Repositories
     public class RepositoryBase<T> : IRepositoryBase<T> where T : EntityValueObject
     {
         protected ApplicationDbContext _dbContext;
+        private readonly INotificationError _notificationError;
 
-        public RepositoryBase(ApplicationDbContext dbContext)
+        public RepositoryBase(ApplicationDbContext dbContext, INotificationError notificationError)
         {
             _dbContext = dbContext;
+            _notificationError = notificationError;
         }
 
         public async Task<T> CreateAsync(T entity)
         {
-            var result = _dbContext.Set<T>().Add(entity);
+            try
+            {
 
-            _dbContext.SaveChanges();
+                var result = _dbContext.Set<T>().Add(entity);
 
-            return await Task.FromResult(entity);
+                _dbContext.SaveChanges();
+
+                return await Task.FromResult(entity);
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
+
         }
 
 
         public async Task DeleteAsync(T entity)
         {
-            _dbContext.Set<T>().Remove(entity);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+
+                _dbContext.Set<T>().Remove(entity);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception ex) { }
 
         }
 
@@ -60,7 +78,7 @@ namespace AvaliacaoImpar.Infra.Repositories
 
         }
 
-        public async Task<T> GetById(int id)
+        public virtual async Task<T> GetById(long id)
         {
             var result = await _dbContext.Set<T>().FindAsync(id);
 
@@ -69,10 +87,19 @@ namespace AvaliacaoImpar.Infra.Repositories
 
         public async Task<T> UpdateAsync(T entity)
         {
-            _dbContext.Set<T>().Update(entity);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
 
-            return await Task.FromResult(entity);
+                _dbContext.Set<T>().Update(entity);
+                await _dbContext.SaveChangesAsync();
+
+                return await Task.FromResult(entity);
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
         }
 
 

@@ -21,7 +21,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AvaliacaoImpar.Application\AvaliacaoImpar.Application.csproj" />
     <ProjectReference Include="..\AvaliacaoImpar.Infra\AvaliacaoImpar.Infra.csproj" />
+    <ProjectReference Include="..\AvaliacaoImpar.Services\AvaliacaoImpar.Services.csproj" />
   </ItemGroup>
 
 </Project>

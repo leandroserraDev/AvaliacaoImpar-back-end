@@ -4,14 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AvaliacaoImpar.Domain.Entities.car;
+using AvaliacaoImpar.Domain.Entities.photo;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace AvaliacaoImpar.Infra.Mappings.car
 {
-    public class CarMap : IEntityTypeConfiguration<Car>
+    public class CarMap : IEntityTypeConfiguration<Card>
     {
-        public void Configure(EntityTypeBuilder<Car> builder)
+        public void Configure(EntityTypeBuilder<Card> builder)
         {
             builder.ToTable("Car");
 
@@ -21,13 +22,10 @@ namespace AvaliacaoImpar.Infra.Mappings.car
                 .HasMaxLength(35)
                 .IsRequired();
 
-            builder.Property(obj => obj.PhotoId)
-                .IsRequired();
-
             builder.HasOne(obj => obj.Photo)
-                .WithMany()
-                .HasForeignKey(obj => obj.PhotoId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .WithOne(obj => obj.Card)
+                .HasForeignKey<Photo>(obj => obj.IdCard)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

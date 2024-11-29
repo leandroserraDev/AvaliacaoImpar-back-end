@@ -15,11 +15,14 @@ namespace AvaliacaoImpar.Infra.Mappings.photo
         {
             builder.ToTable("Photo");
 
-            builder.HasKey(obj => obj.Id);
+            builder.Ignore(obj => obj.Id);
+            builder.HasKey(obj => obj.IdCard);
 
             builder.Property(obj => obj.Base64)
                 .IsRequired()
-                .HasMaxLength(64);
+                .HasColumnType("NVARCHAR(MAX)");
+
+                
         }
     }
 }

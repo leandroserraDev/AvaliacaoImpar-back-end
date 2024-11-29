@@ -21,7 +21,7 @@ namespace AvaliacaoImpar.Infra.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("AvaliacaoImpar.Domain.Entities.car.Car", b =>
+            modelBuilder.Entity("AvaliacaoImpar.Domain.Entities.car.Card", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -31,47 +31,46 @@ namespace AvaliacaoImpar.Infra.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("PhotoId")
-                        .HasColumnType("bigint");
+                        .HasMaxLength(35)
+                        .HasColumnType("nvarchar(35)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PhotoId");
-
-                    b.ToTable("Cars");
+                    b.ToTable("Car", (string)null);
                 });
 
             modelBuilder.Entity("AvaliacaoImpar.Domain.Entities.photo.Photo", b =>
                 {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<long>("IdCard")
                         .HasColumnType("bigint");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"), 1L, 1);
 
                     b.Property<string>("Base64")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("NVARCHAR(MAX)");
 
-                    b.HasKey("Id");
+                    b.HasKey("IdCard");
 
-                    b.ToTable("Photos");
+                    b.ToTable("Photo", (string)null);
                 });
 
-            modelBuilder.Entity("AvaliacaoImpar.Domain.Entities.car.Car", b =>
+            modelBuilder.Entity("AvaliacaoImpar.Domain.Entities.photo.Photo", b =>
                 {
-                    b.HasOne("AvaliacaoImpar.Domain.Entities.photo.Photo", "Photo")
-                        .WithMany()
-                        .HasForeignKey("PhotoId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.HasOne("AvaliacaoImpar.Domain.Entities.car.Card", "Card")
+                        .WithOne("Photo")
+                        .HasForeignKey("AvaliacaoImpar.Domain.Entities.photo.Photo", "IdCard")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Photo");
+                    b.Navigation("Card");
+                });
+
+            modelBuilder.Entity("AvaliacaoImpar.Domain.Entities.car.Card", b =>
+                {
+                    b.Navigation("Photo")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

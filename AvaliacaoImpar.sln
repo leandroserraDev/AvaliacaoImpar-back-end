@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvaliacaoImpar.Infra", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvaliacaoImpar.Domain", "src\AvaliacaoImpar.Domain\AvaliacaoImpar.Domain.csproj", "{FF15079A-ED4C-46C8-B9E9-16D216B062ED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvaliacaoImpar.Services", "src\AvaliacaoImpar.Services\AvaliacaoImpar.Services.csproj", "{221A36FA-0C9F-44AA-9EDE-BCD08C738F6B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvaliacaoImpar.Application", "src\AvaliacaoImpar.Application\AvaliacaoImpar.Application.csproj", "{EEB5515B-7E6F-46A2-8D1B-5EF22E7D40FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +41,14 @@ Global
 		{FF15079A-ED4C-46C8-B9E9-16D216B062ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF15079A-ED4C-46C8-B9E9-16D216B062ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF15079A-ED4C-46C8-B9E9-16D216B062ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{221A36FA-0C9F-44AA-9EDE-BCD08C738F6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{221A36FA-0C9F-44AA-9EDE-BCD08C738F6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{221A36FA-0C9F-44AA-9EDE-BCD08C738F6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{221A36FA-0C9F-44AA-9EDE-BCD08C738F6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEB5515B-7E6F-46A2-8D1B-5EF22E7D40FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEB5515B-7E6F-46A2-8D1B-5EF22E7D40FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEB5515B-7E6F-46A2-8D1B-5EF22E7D40FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEB5515B-7E6F-46A2-8D1B-5EF22E7D40FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -45,5 +57,7 @@ Global
 		{F124B04F-6502-42E3-B621-735B277CF738} = {18F0F7EF-50BA-4F66-8A5C-E170DECF6BC0}
 		{2ABB352E-9D92-45DB-9B22-14CC551E7986} = {2C4AED00-55F0-4A8E-8AAD-252FF7800B7A}
 		{FF15079A-ED4C-46C8-B9E9-16D216B062ED} = {26B1101E-A52D-425A-B2C8-C801395C3DF9}
+		{221A36FA-0C9F-44AA-9EDE-BCD08C738F6B} = {7783D48C-11C6-4A31-8612-D6FBFF2C829B}
+		{EEB5515B-7E6F-46A2-8D1B-5EF22E7D40FF} = {A23C5ECB-EE14-4A78-A4FB-EB1A32A93172}
 	EndGlobalSection
 EndGlobal

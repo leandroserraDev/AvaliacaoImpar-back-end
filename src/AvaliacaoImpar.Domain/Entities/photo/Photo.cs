@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AvaliacaoImpar.Domain.Entities.car;
 using AvaliacaoImpar.Domain.Entities.ValueObjects;
 
 namespace AvaliacaoImpar.Domain.Entities.photo
@@ -10,6 +11,8 @@ namespace AvaliacaoImpar.Domain.Entities.photo
     public class Photo : EntityValueObject
     {
 
+        public long IdCard { get; private set; }
+        public virtual Card Card{ get; private set; }
         public string Base64 { get; private set; }
 
         public Photo(string base64)

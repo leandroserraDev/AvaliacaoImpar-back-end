@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using AvaliacaoImpar.Domain.Entities.photo;
 using AvaliacaoImpar.Domain.Interfaces.Repositories.Base;
 
-namespace AvaliacaoImpar.Domain.Interfaces.Repositories.poto
+namespace AvaliacaoImpar.Domain.Interfaces.Repositories.photo
 {
     public interface IRepositoryPhoto : IRepositoryBase<Photo>
     {
