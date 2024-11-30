@@ -39,16 +39,14 @@ namespace AvaliacaoImpar.Domain.Entities.car
         public EStatusCar Status { get; private set; }
 
 
-        public void UpdatePhoto(Photo photo)
+        public  void UpdateData(Card cardToUpdate)
         {
-            Photo = photo;
+            Name = cardToUpdate.Name;
+            Photo = cardToUpdate.Photo;
+            Status = cardToUpdate.Status;
+
         }
 
-        public void UpdateName(string name)
-        {
-            Name = name;
-        }
 
-  
     }
 }

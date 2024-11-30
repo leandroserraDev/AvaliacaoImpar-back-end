@@ -8,12 +8,13 @@ using AvaliacaoImpar.Domain.Interfaces.Repositories.Base;
 using AvaliacaoImpar.Domain.Interfaces.Services.notification;
 using AvaliacaoImpar.Domain.Interfaces.Services.photo;
 using AvaliacaoImpar.Services.Services.Base;
+using FluentValidation;
 
 namespace AvaliacaoImpar.Services.Services.photo
 {
     public class ServicePhoto : ServiceBase<Photo>, IServicePhoto
     {
-        public ServicePhoto(IRepositoryBase<Photo> repositoryBase, INotificationError notificationError) : base(repositoryBase, notificationError)
+        public ServicePhoto(IRepositoryBase<Photo> repositoryBase, INotificationError notificationError, IValidator<Photo> validator) : base(repositoryBase, notificationError, validator )
         {
         }
     }

@@ -12,7 +12,7 @@ namespace AvaliacaoImpar.Application.DTOS.card.Create
     public record CardUpdateDTO( string nameCard, IFormFile base64File, Domain.Enums.EStatusCar status)
     {
 
-        public Card ToDomain(int id)
+        public Card ToDomain(long id)
         {
 
             using (var memoryStream = new MemoryStream())

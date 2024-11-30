@@ -11,7 +11,6 @@ namespace AvaliacaoImpar.Domain.Entities.photo
     public class Photo : EntityValueObject
     {
 
-        public long IdCard { get; private set; }
         public virtual Card Card{ get; private set; }
         public string Base64 { get; private set; }
 

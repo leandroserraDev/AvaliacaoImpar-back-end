@@ -24,7 +24,7 @@ namespace AvaliacaoImpar.Infra.Mappings.car
 
             builder.HasOne(obj => obj.Photo)
                 .WithOne(obj => obj.Card)
-                .HasForeignKey<Photo>(obj => obj.IdCard)
+                .HasForeignKey<Photo>(obj => obj.Id)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }

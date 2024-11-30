@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AvaliacaoImpar.Infra.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241129234929_V0")]
+    [Migration("20241130000058_V0")]
     partial class V0
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,14 +46,14 @@ namespace AvaliacaoImpar.Infra.Migrations
 
             modelBuilder.Entity("AvaliacaoImpar.Domain.Entities.photo.Photo", b =>
                 {
-                    b.Property<long>("IdCard")
+                    b.Property<long>("Id")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Base64")
                         .IsRequired()
                         .HasColumnType("NVARCHAR(MAX)");
 
-                    b.HasKey("IdCard");
+                    b.HasKey("Id");
 
                     b.ToTable("Photo", (string)null);
                 });
@@ -62,7 +62,7 @@ namespace AvaliacaoImpar.Infra.Migrations
                 {
                     b.HasOne("AvaliacaoImpar.Domain.Entities.car.Card", "Card")
                         .WithOne("Photo")
-                        .HasForeignKey("AvaliacaoImpar.Domain.Entities.photo.Photo", "IdCard")
+                        .HasForeignKey("AvaliacaoImpar.Domain.Entities.photo.Photo", "Id")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 

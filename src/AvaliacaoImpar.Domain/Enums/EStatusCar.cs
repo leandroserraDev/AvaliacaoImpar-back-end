@@ -8,7 +8,7 @@ namespace AvaliacaoImpar.Domain.Enums
 {
     public enum EStatusCar
     {
-       Ativo =0,
-       Inativo = 1
+       Ativo =1,
+       Inativo = 0
     }
 }

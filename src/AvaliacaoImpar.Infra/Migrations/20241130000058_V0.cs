@@ -26,15 +26,15 @@ namespace AvaliacaoImpar.Infra.Migrations
                 name: "Photo",
                 columns: table => new
                 {
-                    IdCard = table.Column<long>(type: "bigint", nullable: false),
+                    Id = table.Column<long>(type: "bigint", nullable: false),
                     Base64 = table.Column<string>(type: "NVARCHAR(MAX)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Photo", x => x.IdCard);
+                    table.PrimaryKey("PK_Photo", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Photo_Car_IdCard",
-                        column: x => x.IdCard,
+                        name: "FK_Photo_Car_Id",
+                        column: x => x.Id,
                         principalTable: "Car",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);

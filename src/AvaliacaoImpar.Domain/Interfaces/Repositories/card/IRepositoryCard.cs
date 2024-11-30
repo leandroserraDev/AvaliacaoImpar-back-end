@@ -10,5 +10,6 @@ namespace AvaliacaoImpar.Domain.Interfaces.Repositories.car
 {
     public  interface IRepositoryCard : IRepositoryBase<Card>
     {
+        Task<bool> BeUniqueCardByName(long id,string name);
     }
 }

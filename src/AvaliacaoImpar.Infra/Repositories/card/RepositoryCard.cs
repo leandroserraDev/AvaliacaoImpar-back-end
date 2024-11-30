@@ -17,6 +17,14 @@ namespace AvaliacaoImpar.Infra.Repositories.car
         {
         }
 
+        public async Task<bool> BeUniqueCardByName(long id, string name)
+        {
+           return await _dbContext.Cars.AnyAsync(obj => 
+           !obj.Id.Equals(id)
+           &&
+           obj.Name.ToLower().Equals(name.ToLower()));
+        }
+
         public override async Task<Card> GetById(long id)
         {
             var result = _dbContext.Cars.Include(obj => obj.Photo)

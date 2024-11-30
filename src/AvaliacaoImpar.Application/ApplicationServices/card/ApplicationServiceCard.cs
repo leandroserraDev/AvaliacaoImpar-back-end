@@ -24,11 +24,23 @@ namespace AvaliacaoImpar.Application.ApplicationServices.card
             var cardDomain = entity.ToDomain();
 
             var result = await _serviceCard.CreateAsync(cardDomain);
-
+            if (result == null) return null;
             return  await Task.FromResult(new CardViewDTO(result.Id,result.Name, result.Photo.Base64, result.Status));
         }
 
-        public async Task<CardViewDTO> UpdateAsync(int id,CardUpdateDTO entity)
+        public async Task<CardViewDTO> GetById(long id)
+        {
+            var result = await _serviceCard.GetById(id);
+
+            if(result == null)
+            {
+                return null;
+            }
+
+            return await Task.FromResult(new CardViewDTO(result.Id, result.Name, result.Photo.Base64, result.Status));
+        }
+
+        public async Task<CardViewDTO> UpdateAsync(long id,CardUpdateDTO entity)
         {
             var cardDomain = entity.ToDomain(id);
 

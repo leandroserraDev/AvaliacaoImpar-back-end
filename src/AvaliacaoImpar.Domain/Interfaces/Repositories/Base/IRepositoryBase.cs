@@ -15,6 +15,7 @@ namespace AvaliacaoImpar.Domain.Interfaces.Repositories.Base
         Task<T> UpdateAsync(T entity);
         Task DeleteAsync(T entity);
         Task<PaginatedResult<T>> GetAllAsync(Expression<Func<T, bool>> expression, PaginatedParamns paginatedParamns);
+
         Task<PaginatedResult<T>> GetAllAsync(PaginatedParamns paginatedParamns);
 
         Task<T> GetById(long id);

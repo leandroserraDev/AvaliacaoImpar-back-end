@@ -15,8 +15,7 @@ namespace AvaliacaoImpar.Infra.Mappings.photo
         {
             builder.ToTable("Photo");
 
-            builder.Ignore(obj => obj.Id);
-            builder.HasKey(obj => obj.IdCard);
+            builder.HasKey(obj => obj.Id);
 
             builder.Property(obj => obj.Base64)
                 .IsRequired()

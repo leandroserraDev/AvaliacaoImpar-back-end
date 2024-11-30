@@ -26,5 +26,10 @@ namespace AvaliacaoImpar.Services.Services.Notification
         {
             return await Task.FromResult(Notifications);
         }
+
+        public async Task<bool> HasNotifications()
+        {
+            return await Task.FromResult(Notifications.Any());
+        }
     }
 }

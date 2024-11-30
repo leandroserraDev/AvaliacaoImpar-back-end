@@ -1,5 +1,6 @@
 ﻿using AvaliacaoImpar.Application.DTOS.card.Create;
 using AvaliacaoImpar.Application.Interfaces.Services.Card;
+using AvaliacaoImpar.Domain.Interfaces.Services.notification;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,7 +14,7 @@ namespace AvaliacaoImpa.API.Controllers.Card
 
         private readonly IApplicationServiceCard _applicationServiceCard;
 
-        public CardController(IApplicationServiceCard applicationServiceCard)
+        public CardController(IApplicationServiceCard applicationServiceCard, INotificationError notificationError): base(notificationError)
         {
             _applicationServiceCard = applicationServiceCard;
         }
@@ -27,7 +28,7 @@ namespace AvaliacaoImpa.API.Controllers.Card
 
                 if(result == null)
                 {
-                    return BadRequest();
+                    return await CustomResponse();
                 }
 
 
@@ -58,6 +59,16 @@ namespace AvaliacaoImpa.API.Controllers.Card
             }
 
             return await CustomResponse();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(long id)
+        {
+            var result = await _applicationServiceCard.GetById(id);
+
+            if (result == null) return await CustomResponse();
+
+            return await CustomResponse(result);
         }
     }
 }

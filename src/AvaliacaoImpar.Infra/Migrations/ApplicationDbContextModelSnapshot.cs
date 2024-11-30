@@ -44,14 +44,14 @@ namespace AvaliacaoImpar.Infra.Migrations
 
             modelBuilder.Entity("AvaliacaoImpar.Domain.Entities.photo.Photo", b =>
                 {
-                    b.Property<long>("IdCard")
+                    b.Property<long>("Id")
                         .HasColumnType("bigint");
 
                     b.Property<string>("Base64")
                         .IsRequired()
                         .HasColumnType("NVARCHAR(MAX)");
 
-                    b.HasKey("IdCard");
+                    b.HasKey("Id");
 
                     b.ToTable("Photo", (string)null);
                 });
@@ -60,7 +60,7 @@ namespace AvaliacaoImpar.Infra.Migrations
                 {
                     b.HasOne("AvaliacaoImpar.Domain.Entities.car.Card", "Card")
                         .WithOne("Photo")
-                        .HasForeignKey("AvaliacaoImpar.Domain.Entities.photo.Photo", "IdCard")
+                        .HasForeignKey("AvaliacaoImpar.Domain.Entities.photo.Photo", "Id")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 

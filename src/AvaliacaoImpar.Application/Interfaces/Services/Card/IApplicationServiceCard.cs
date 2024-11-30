@@ -12,7 +12,9 @@ namespace AvaliacaoImpar.Application.Interfaces.Services.Card
     public interface IApplicationServiceCard
     {
         Task<CardViewDTO> CreateAsync(CardCreateDTO entity);
-        Task<CardViewDTO> UpdateAsync(int id,CardUpdateDTO entity);
+        Task<CardViewDTO> UpdateAsync(long id,CardUpdateDTO entity);
+
+        Task<CardViewDTO> GetById(long id);
 
 
     }

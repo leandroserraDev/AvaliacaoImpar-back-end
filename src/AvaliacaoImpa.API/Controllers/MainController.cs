@@ -1,4 +1,5 @@
 ﻿using AvaliacaoImpa.API.Response;
+using AvaliacaoImpar.Domain.Interfaces.Services.notification;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,23 +9,25 @@ namespace AvaliacaoImpa.API.Controllers
     [ApiController]
     public class MainController : ControllerBase
     {
-        //private readonly INotificacaoErrorServico _notificationErrorService;
+        private readonly INotificationError _notificationError;
 
-        //protected MainController(INotificacaoErrorServico notificationErrorService)
-        //{
-        //    _notificationErrorService = notificationErrorService;
-        //}
+        protected MainController(INotificationError notificationError)
+        {
+            _notificationError = notificationError;
+        }
 
-        protected async Task<IActionResult> CustomResponse(object result = null, bool success = true)
+        protected async Task<IActionResult> CustomResponse(object result = null)
         {
 
-            if (success)
+            if (await _notificationError.HasNotifications())
             {
-                return Ok(new CustomResponse(true, result, null));
+
+                return BadRequest(new
+                 CustomResponse(false, result, _notificationError.GetNotifications().Result));
             }
 
-            return BadRequest(new
-             CustomResponse(false, result, new List<string>()));
+            return Ok(new CustomResponse(true, result, null));
+
         }
     }
 }

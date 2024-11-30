@@ -9,16 +9,22 @@ using AvaliacaoImpar.Domain.Interfaces.Repositories.car;
 using AvaliacaoImpar.Domain.Interfaces.Services.card;
 using AvaliacaoImpar.Domain.Interfaces.Services.notification;
 using AvaliacaoImpar.Domain.Interfaces.Services.photo;
+using AvaliacaoImpar.Domain.Validators.card;
 using AvaliacaoImpar.Services.Services.Base;
+using FluentValidation;
 
 namespace AvaliacaoImpar.Services.Services.card
 {
     public class ServiceCard : ServiceBase<Card>, IServiceCard
     {
+        private readonly IValidator<Card> _validator;
+
         public ServiceCard(IRepositoryCard repositoryBase,
-            INotificationError notificationError)
-            : base(repositoryBase, notificationError)
+            INotificationError notificationError,
+            IValidator<Card> validator)
+            : base(repositoryBase, notificationError, validator)
         {
+            _validator = validator;
         }
 
         public override async Task<Card> UpdateAsync(Card entity)
@@ -35,9 +41,10 @@ namespace AvaliacaoImpar.Services.Services.card
 
             }
 
+        
+
             //Atualizar informações
-            card.UpdatePhoto(entity.Photo);
-            card.UpdateName(entity.Name);
+            card.UpdateData(entity);
 
             //salvar novo card com as novas informação de nome, foto e 
             var result = await _repositoryBase.UpdateAsync(card);
