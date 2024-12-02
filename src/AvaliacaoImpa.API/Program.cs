@@ -1,4 +1,9 @@
 using AvaliacaoImpa.API.Configurations;
+using AvaliacaoImpa.API.GraphQL.mutation.card;
+using AvaliacaoImpa.API.GraphQL.query;
+using AvaliacaoImpa.API.GraphQL.query.card;
+using AvaliacaoImpar.Application.DTOS.card;
+using AvaliacaoImpar.Domain.Interfaces.Repositories.paginated;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +18,6 @@ builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "API de Cadastro de Card", Version = "v1" });
 
-    // Aqui configuramos para exibir corretamente os campos para upload de arquivos
     c.MapType<IFormFile>(() => new OpenApiSchema
     {
         Type = "string",
@@ -23,19 +27,39 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.EntityFrameworkConfiguration();
 builder.Services.DependencyInjectionConfiguration();
 
-var app = builder.Build();
+builder.Services
+    .AddGraphQLServer()
+    .AddQueryType<CardQuery>()
+    .AddMutationType<CardMutation>()
+    .AddUploadType();
 
-// Configure the HTTP request pipeline.
+
+var app = builder.Build();
+app.UseRouting();
+
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
+
+
+app.UseCors(options => options.WithOrigins()
+                              .AllowAnyOrigin()
+                              .AllowAnyHeader()
+                              .AllowAnyMethod());
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapGraphQL(); // Mapeia automaticamente para "/graphql"
+});
 
 app.Run();

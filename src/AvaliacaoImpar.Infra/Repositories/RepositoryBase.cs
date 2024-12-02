@@ -9,6 +9,7 @@ using AvaliacaoImpar.Domain.Interfaces.Repositories.Base;
 using AvaliacaoImpar.Domain.Interfaces.Repositories.paginated;
 using AvaliacaoImpar.Domain.Interfaces.Services.notification;
 using AvaliacaoImpar.Infra.Context;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
 namespace AvaliacaoImpar.Infra.Repositories
@@ -44,26 +45,31 @@ namespace AvaliacaoImpar.Infra.Repositories
         }
 
 
-        public async Task DeleteAsync(T entity)
+        public async Task<bool> DeleteAsync(T entity)
         {
             try
             {
 
                 _dbContext.Set<T>().Remove(entity);
                 await _dbContext.SaveChangesAsync();
+                return await Task.FromResult(true);
             }
-            catch (Exception ex) { }
+            catch (Exception ex) {
+                return await Task.FromResult(false);
+            }
 
         }
 
-        public async Task<PaginatedResult<T>> GetAllAsync(Expression<Func<T, bool>> expression, PaginatedParamns paginatedParamns)
+        public virtual async Task<PaginatedResult<T>> GetAllAsync(Expression<Func<T, bool>> expression, PaginatedParamns paginatedParamns)
         {
-            var queryResult = _dbContext.Set<T>()
+            var queryResult = await  _dbContext.Set<T>()
                              .Where(expression)
                              .Skip((paginatedParamns.PageNumber - 1) * 10) // Pula os registros já exibidos
-                             .Take(10).ToList();// Limita os resultados ao tamanho da página
+                             .Take(10).ToListAsync();// Limita os resultados ao tamanho da página
 
-            return await ReturnPaginated(queryResult, paginatedParamns);
+            var totalCount = await _dbContext.Set<T>().Where(expression).CountAsync();
+
+            return await ReturnPaginated(totalCount, queryResult, paginatedParamns);
 
         }
 
@@ -73,7 +79,9 @@ namespace AvaliacaoImpar.Infra.Repositories
                      .Skip((paginatedParamns.PageNumber - 1) * 10) // Pula os registros já exibidos
                      .Take(10).ToList();// Limita os resultados ao tamanho da página
 
-            return await ReturnPaginated(queryResult, paginatedParamns);
+            var totalCount = await _dbContext.Set<T>().CountAsync();
+
+            return await ReturnPaginated(totalCount,queryResult, paginatedParamns);
 
 
         }
@@ -103,9 +111,9 @@ namespace AvaliacaoImpar.Infra.Repositories
         }
 
 
-        private async Task<PaginatedResult<T>> ReturnPaginated(List<T> entities, PaginatedParamns paginatedParamns)
+        protected async Task<PaginatedResult<T>> ReturnPaginated(long totalCounts, List<T> entities, PaginatedParamns paginatedParamns)
         {
-            var totalCounts = entities.Count;
+            
             var result = new PaginatedResult<T>(totalCounts, paginatedParamns.PageNumber, (int)Math.Ceiling(totalCounts / (double)paginatedParamns.PageSize), entities);
 
             return await Task.FromResult(result);

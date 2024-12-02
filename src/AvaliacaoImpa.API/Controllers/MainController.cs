@@ -1,4 +1,4 @@
-﻿using AvaliacaoImpa.API.Response;
+﻿using AvaliacaoImpa.API.response;
 using AvaliacaoImpar.Domain.Interfaces.Services.notification;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,11 +22,11 @@ namespace AvaliacaoImpa.API.Controllers
             if (await _notificationError.HasNotifications())
             {
 
-                return BadRequest(new
-                 CustomResponse(false, result, _notificationError.GetNotifications().Result));
+                return base.BadRequest(new
+                 Response<dynamic>(false, result, _notificationError.GetNotifications().Result));
             }
 
-            return Ok(new CustomResponse(true, result, null));
+            return base.Ok(new Response<dynamic>(true, result, null));
 
         }
     }

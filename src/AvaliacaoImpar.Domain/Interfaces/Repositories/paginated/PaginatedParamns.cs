@@ -14,6 +14,11 @@ namespace AvaliacaoImpar.Domain.Interfaces.Repositories.paginated
             PageSize = pageSize;
         }
 
+        public PaginatedParamns()
+        {
+            
+        }
+
         public int PageNumber { get; set; } = 1;
         public int PageSize { get; set; } = 10; 
     }

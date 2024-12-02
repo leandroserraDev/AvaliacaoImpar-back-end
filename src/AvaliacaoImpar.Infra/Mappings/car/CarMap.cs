@@ -22,10 +22,12 @@ namespace AvaliacaoImpar.Infra.Mappings.car
                 .HasMaxLength(35)
                 .IsRequired();
 
+            builder.HasIndex(obj => obj.Status);
+
             builder.HasOne(obj => obj.Photo)
                 .WithOne(obj => obj.Card)
                 .HasForeignKey<Photo>(obj => obj.Id)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

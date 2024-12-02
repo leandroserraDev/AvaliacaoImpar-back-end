@@ -8,7 +8,6 @@ using AvaliacaoImpar.Domain.Interfaces.Repositories.Base;
 using AvaliacaoImpar.Domain.Interfaces.Repositories.car;
 using AvaliacaoImpar.Domain.Interfaces.Services.card;
 using AvaliacaoImpar.Domain.Interfaces.Services.notification;
-using AvaliacaoImpar.Domain.Interfaces.Services.photo;
 using AvaliacaoImpar.Domain.Validators.card;
 using AvaliacaoImpar.Services.Services.Base;
 using FluentValidation;
@@ -40,9 +39,6 @@ namespace AvaliacaoImpar.Services.Services.card
                 return null;
 
             }
-
-        
-
             //Atualizar informações
             card.UpdateData(entity);
 

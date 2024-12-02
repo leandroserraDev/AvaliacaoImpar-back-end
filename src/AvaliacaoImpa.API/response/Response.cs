@@ -1,8 +1,8 @@
-﻿namespace AvaliacaoImpa.API.Response
+﻿namespace AvaliacaoImpa.API.response
 {
-    public class CustomResponse
+    public class Response<T>
     {
-        public CustomResponse(bool success, object data, IList<string>? errors = null)
+        public Response(bool success, T? data, IList<string>? errors = null)
         {
             this.success = success;
            this.data = data;
@@ -10,7 +10,7 @@
         }
 
         public bool success{ get; private set; }
-        public object data { get; private set; }
+        public T? data { get; private set; }
         public IList<string>? errors { get; private set; } = null;
     }
 }

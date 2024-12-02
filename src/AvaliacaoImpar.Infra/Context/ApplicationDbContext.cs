@@ -18,8 +18,9 @@ namespace AvaliacaoImpar.Infra.Context
             
         }
 
-        public DbSet<Card> Cars { get; set; }
-        public DbSet<Photo> Photos{ get; set; }
+        public DbSet<Card> Cards { get; set; }
+        public DbSet<Photo> Photos { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

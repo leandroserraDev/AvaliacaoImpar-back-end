@@ -8,7 +8,7 @@ namespace AvaliacaoImpar.Domain.Interfaces.Repositories.paginated
 {
     public class PaginatedResult<T>
     {
-        public PaginatedResult(int totalCount, int pageNumber, int pageSize, IEnumerable<T> items)
+        public PaginatedResult(long totalCount, int pageNumber, int pageSize, IEnumerable<T> items)
         {
             TotalCount = totalCount;
             PageNumber = pageNumber;
@@ -16,9 +16,17 @@ namespace AvaliacaoImpar.Domain.Interfaces.Repositories.paginated
             Items = items;
         }
 
-        public int TotalCount { get; private set; }
+        public PaginatedResult()
+        {
+            
+        }
+
+
+        public long TotalCount { get; private set; }
         public int PageNumber { get; private set; }
         public int PageSize { get; private set; }
         public IEnumerable<T> Items { get; private set; }
+
+
     }
 }

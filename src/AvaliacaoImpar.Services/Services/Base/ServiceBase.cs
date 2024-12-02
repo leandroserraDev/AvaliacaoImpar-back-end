@@ -40,18 +40,27 @@ namespace AvaliacaoImpar.Services.Services.Base
             }
 
             return await _repositoryBase.CreateAsync(entity);
-            
+
         }
 
-        public virtual async Task<T> UpdateAsync( T entity)
+        public virtual async Task<T> UpdateAsync(T entity)
         {
+
             return await _repositoryBase.UpdateAsync(entity);
+
         }
 
-        public async Task DeleteAsync(T entity)
+        public async Task<bool> DeleteAsync(long id)
         {
-          await _repositoryBase.DeleteAsync(entity);
-            
+            var entity = await GetById(id);
+            if (entity == null)
+            {
+                _notificationError.AddNotification($"{typeof(T).Name} não encontrado.");
+                return await Task.FromResult(false);
+            }
+            await _repositoryBase.DeleteAsync(entity);
+
+            return await Task.FromResult(true);
         }
 
         public async Task<PaginatedResult<T>> GetAllAsync(Expression<Func<T, bool>> expression, PaginatedParamns paginatedParamns)
@@ -59,14 +68,9 @@ namespace AvaliacaoImpar.Services.Services.Base
             return await _repositoryBase.GetAllAsync(expression, paginatedParamns);
         }
 
-        public Task<PaginatedResult<T>> GetAllAsync(PaginatedParamns paginatedParamns)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<T> GetById(long id)
         {
-           return await _repositoryBase.GetById(id);
+            return await _repositoryBase.GetById(id);
         }
 
     }

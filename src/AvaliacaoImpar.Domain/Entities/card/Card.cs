@@ -9,44 +9,51 @@ using AvaliacaoImpar.Domain.Enums;
 
 namespace AvaliacaoImpar.Domain.Entities.car
 {
+    #region Class
     public class Card : EntityValueObject
     {
-        public Card( string name, Photo photo, EStatusCar status)
+
+        #region Constructors
+        //Constructor for Create 
+        public Card(string name, Photo photo, EStatusCar status)
         {
             Photo = photo;
             Name = name;
             Status = status;
         }
 
-        //construtor para edição
-        public Card(long id,string name, Photo photo, EStatusCar status)
+        //Constructor for Edit
+        public Card(long id, string name, Photo photo, EStatusCar status)
         {
             Id = id;
             Photo = photo;
             Name = name;
             Status = status;
         }
-
-
-
-
+    
+        //Constructor for Entity Framework
         protected Card()
         {
-            
+
         }
-        public virtual Photo Photo { get;private set; }
+        #endregion
+
+        #region Properties
+        public virtual Photo Photo { get; private set; }
         public string Name { get; private set; }
         public EStatusCar Status { get; private set; }
+        #endregion
 
-
-        public  void UpdateData(Card cardToUpdate)
+        #region Methods
+        public void UpdateData(Card cardToUpdate)
         {
             Name = cardToUpdate.Name;
             Photo = cardToUpdate.Photo;
             Status = cardToUpdate.Status;
-
         }
+        #endregion
 
 
     }
+    #endregion
 }

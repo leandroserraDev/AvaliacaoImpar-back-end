@@ -9,9 +9,8 @@ using Microsoft.AspNetCore.Http;
 
 namespace AvaliacaoImpar.Application.DTOS.card.Create
 {
-    public record CardCreateDTO(string nameCard, IFormFile base64File)
+    public record CardCreateDTO(string name, IFormFile base64File)
     {
-
 
         public Card ToDomain()
         {
@@ -24,7 +23,7 @@ namespace AvaliacaoImpar.Application.DTOS.card.Create
 
                 // Aqui você pode usar o base64String, por exemplo, salvar no banco de dados
                 // Exemplo fictício:
-                var newCard = new Card(nameCard, new Domain.Entities.photo.Photo(base64String), Domain.Enums.EStatusCar.Ativo);
+                var newCard = new Card(name, new Domain.Entities.photo.Photo(base64String), Domain.Enums.EStatusCar.Ativo);
                 
                 return newCard;
 
