@@ -24,6 +24,8 @@ jobs:
     - name: Run tests and collect code coverage
       run: |
         dotnet test --collect:"XPlat Code Coverage"  # Executa os testes e coleta a cobertura de código
+        # Comando para listar o conteúdo do diretório de resultados para depuração
+        ls -R ./TestResults
 
     - name: Publish the app
       run: dotnet publish -c Release -o ./publish
