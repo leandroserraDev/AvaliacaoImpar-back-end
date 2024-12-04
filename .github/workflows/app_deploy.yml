@@ -3,11 +3,12 @@ name: Deploy to Azure
 on:
   push:
     branches:
-      - developer  # Dispara o workflow ao realizar push na branch "main"
+      - master  # Dispara o workflow ao realizar push na branch "developer"
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
@@ -17,12 +18,30 @@ jobs:
       with:
         dotnet-version: '6.0'  # Ajuste conforme sua versão
 
+    # Etapa para restaurar pacotes NuGet
+    - name: Restore dependencies
+      run: dotnet restore
+
+    # Etapa para rodar os testes unitários e coletar a cobertura de código
+    - name: Run tests and collect code coverage
+      run: |
+        dotnet test --collect:"XPlat Code Coverage"  
+
+    # Etapa para publicar a aplicação
     - name: Publish the app
       run: dotnet publish -c Release -o ./publish
 
+    # Etapa para realizar o deploy no Azure Web App
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
       with:
         app-name: "APP-LeandroSerra-API"  # Nome do App Service
         publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
         package: ./publish
+
+    # Opcional: Se desejar, pode adicionar uma etapa para enviar a cobertura de código para um serviço como o Coveralls ou Codecov
+    - name: Upload code coverage results to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        file: './TestResults/*.xml'  # Caminho para os resultados do teste, ajuste conforme necessário
+        token: ${{ secrets.CODECOV_TOKEN }}  # Se necessário, adicione o token do Codecov nos secrets do GitHub
