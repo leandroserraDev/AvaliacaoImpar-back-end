@@ -1,38 +1,50 @@
-name: Deploy to Azure and Collect Code Coverage
+name: .NET Core CI with Code Coverage
 
 on:
   push:
     branches:
-      - master  # Dispara o workflow ao realizar push na branch "developer"
+      - master  # Gatilho para o push na branch main
+  pull_request:
+    branches:
+      - master  # Gatilho para pull requests na branch main
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+  build-and-test:
+    runs-on: ubuntu-latest  # Define o ambiente de execução
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4  # Faz o checkout do código
 
     - name: Set up .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '6.0'  # Ajuste conforme sua versão
+        dotnet-version: '6.0'  # Defina a versão específica do .NET que você deseja usar
 
-    - name: Restore dependencies
-      run: dotnet restore
+    - name: Install dependencies
+      run: dotnet restore  # Restaura as dependências do projeto
 
     - name: Run tests and collect code coverage
       run: |
-        # Executa os testes e coleta a cobertura de código no diretório especificado
-        dotnet test --collect:"XPlat Code Coverage"
+        dotnet test --collect:"XPlat Code Coverage" --logger trx --results-directory "TestResults"  # Executa os testes e coleta a cobertura
+        echo "Test results and coverage collected in 'TestResults'"
+
+    - name: List test results and coverage files
+      run: |
+        ls -R "TestResults"  # Lista os arquivos de resultados e cobertura para verificar
+
+    - name: Upload test results and coverage report as artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: dotnet-test-coverage  # Nome do artefato
+        path: "TestResults"  # Caminho para os resultados de teste e cobertura
 
     - name: Publish the app
-      run: dotnet publish -c Release -o ./publish
+      run: dotnet publish -c Release -o ./publish  # Publica a aplicação
 
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
       with:
         app-name: "APP-LeandroSerra-API"  # Nome do App Service
-        publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
-        package: ./publish
-
+        publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}  # Perfil de publicação do Azure
+        package: ./publish  # Diretório de publicação
