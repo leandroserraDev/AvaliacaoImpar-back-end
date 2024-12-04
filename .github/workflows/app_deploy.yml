@@ -3,7 +3,7 @@ name: Deploy to Azure
 on:
   push:
     branches:
-      - main  # Dispara o workflow ao realizar push na branch "main"
+      - developer  # Dispara o workflow ao realizar push na branch "main"
 
 jobs:
   deploy:
