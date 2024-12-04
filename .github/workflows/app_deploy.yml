@@ -3,7 +3,7 @@ name: Deploy to Azure
 on:
   push:
     branches:
-      - main  # Dispara o workflow ao realizar push na branch "main"
+      - developer  # Dispara o workflow ao realizar push na branch "main"
 
 jobs:
   deploy:
@@ -15,7 +15,7 @@ jobs:
     - name: Set up .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '7.0'  # Ajuste conforme sua versão
+        dotnet-version: '6.0'  # Ajuste conforme sua versão
 
     - name: Publish the app
       run: dotnet publish -c Release -o ./publish
