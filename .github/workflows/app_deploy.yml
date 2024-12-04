@@ -1,55 +1,45 @@
-name: .NET Core CI
+name: Deploy to Azure and Collect Code Coverage
 
 on:
   push:
     branches:
-      - master
-  pull_request:
-    branches:
-      - master
+      - master  # Dispara o workflow ao realizar push na branch "developer"
 
 jobs:
-  build-and-test:
+  deploy:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        dotnet-version: ['6.0', '7.0', '8.0']  # Define as versões do .NET para rodar os testes
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4  # Faz o checkout do código
+      uses: actions/checkout@v3
 
-    - name: Setup .NET
+    - name: Set up .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: ${{ matrix.dotnet-version }}
+        dotnet-version: '6.0'  # Ajuste conforme sua versão
 
-    - name: Install dependencies
-      run: dotnet restore  # Restaura as dependências
+    - name: Restore dependencies
+      run: dotnet restore
 
-    - name: Run tests and collect results
+    - name: Run tests and collect code coverage
       run: |
-        dotnet test --logger trx --results-directory "TestResults-${{ matrix.dotnet-version }}"  # Executa os testes
-        echo "Test results collected in 'TestResults-${{ matrix.dotnet-version }}'"
-
-    - name: List Test Results
-      run: |
-        echo "Verificando arquivos no diretório de resultados de teste..."
-        ls -R "TestResults-${{ matrix.dotnet-version }}"  # Verifica os arquivos de resultados
-
-    - name: Upload dotnet test results
-      uses: actions/upload-artifact@v4
-      with:
-        name: dotnet-test-results-${{ matrix.dotnet-version }}  # Nome do artefato
-        path: "TestResults-${{ matrix.dotnet-version }}"  # Caminho para os resultados dos testes
+        # Executa os testes e coleta a cobertura de código no diretório especificado
+        dotnet test --collect:"XPlat Code Coverage" -results-directory "./TestResults"
+        # Verifica o conteúdo do diretório de resultados de teste
+        ls -R "./TestResults"
 
     - name: Publish the app
-      run: dotnet publish -c Release -o ./publish  # Publica a aplicação
+      run: dotnet publish -c Release -o ./publish
 
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
       with:
         app-name: "APP-LeandroSerra-API"  # Nome do App Service
-        publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}  # Perfil de publicação
-        package: ./publish  # Diretório de publicação
+        publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
+        package: ./publish
+
+    - name: Upload test results and coverage as artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: code-coverage-results
+        path: "./TestResults"  # Caminho onde o arquivo de cobertura gerado está localizado
