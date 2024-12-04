@@ -14,7 +14,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AvaliacaoImpar.Infra.Repositories.car
 {
-    public class RepositoryCard : RepositoryBase<Card>, IRepositoryCard
+    public class RepositoryCard : RepositoryBase<Card>, IRepositoryCard 
     {
         public RepositoryCard(ApplicationDbContext dbContext, INotificationError notificationError) : base(dbContext, notificationError)
         {
