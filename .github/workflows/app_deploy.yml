@@ -24,7 +24,7 @@ jobs:
     - name: Run tests and collect code coverage
       run: |
         # Executa os testes e coleta a cobertura de código no diretório especificado
-        dotnet test --collect:"XPlat Code Coverage" --results-directory ./TestResults
+        dotnet test --collect:"XPlat Code Coverage" --results-directory TestResults
         # Verifica o conteúdo do diretório de resultados de teste
         ls -R ./TestResults
 
@@ -42,4 +42,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: code-coverage-results
-        path: ./TestResults  # Caminho onde o arquivo de cobertura gerado está localizado
+        path: TestResults  # Caminho onde o arquivo de cobertura gerado está localizado
