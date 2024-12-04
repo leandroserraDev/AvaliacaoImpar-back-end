@@ -33,10 +33,7 @@ namespace AvaliacaoImpa.API.Controllers.Card
                     return await CustomResponse();
                 }
 
-
                 return await CustomResponse(result);
-
-
             }
 
             return await CustomResponse();
