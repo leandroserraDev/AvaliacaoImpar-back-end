@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35514.174 d17.12
+VisualStudioVersion = 17.12.35514.174
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - API", "1 - API", "{18F0F7EF-50BA-4F66-8A5C-E170DECF6BC0}"
 EndProject
@@ -22,6 +22,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvaliacaoImpar.Services", "src\AvaliacaoImpar.Services\AvaliacaoImpar.Services.csproj", "{221A36FA-0C9F-44AA-9EDE-BCD08C738F6B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvaliacaoImpar.Application", "src\AvaliacaoImpar.Application\AvaliacaoImpar.Application.csproj", "{EEB5515B-7E6F-46A2-8D1B-5EF22E7D40FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AvaliacaoImpar.Tests", "src\AvaliacaoImpar.Tests\AvaliacaoImpar.Tests.csproj", "{4F3CC760-C6CA-422C-93D0-CAA4590691D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +51,10 @@ Global
 		{EEB5515B-7E6F-46A2-8D1B-5EF22E7D40FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EEB5515B-7E6F-46A2-8D1B-5EF22E7D40FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EEB5515B-7E6F-46A2-8D1B-5EF22E7D40FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F3CC760-C6CA-422C-93D0-CAA4590691D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F3CC760-C6CA-422C-93D0-CAA4590691D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F3CC760-C6CA-422C-93D0-CAA4590691D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F3CC760-C6CA-422C-93D0-CAA4590691D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,5 +65,6 @@ Global
 		{FF15079A-ED4C-46C8-B9E9-16D216B062ED} = {26B1101E-A52D-425A-B2C8-C801395C3DF9}
 		{221A36FA-0C9F-44AA-9EDE-BCD08C738F6B} = {7783D48C-11C6-4A31-8612-D6FBFF2C829B}
 		{EEB5515B-7E6F-46A2-8D1B-5EF22E7D40FF} = {A23C5ECB-EE14-4A78-A4FB-EB1A32A93172}
+		{4F3CC760-C6CA-422C-93D0-CAA4590691D0} = {7783D48C-11C6-4A31-8612-D6FBFF2C829B}
 	EndGlobalSection
 EndGlobal
