@@ -36,7 +36,3 @@ jobs:
         publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
         package: ./publish
 
-    - name: Upload test results and coverage as artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: code-coverage-results
